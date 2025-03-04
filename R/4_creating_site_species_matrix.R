@@ -1,9 +1,9 @@
 # Creating the species-site matrix 
 # this script is the script to calculate wetland specific measures of diversity
 # both richness and abundance
-# in 'total', defined as: XXXXXXXXXXX
-# in mean across checklists, defined as: XXXXXXXXXXx
-# and mean/median resampled with 50 checklists at each wetland, defined as: XXXXXXX
+# in 'total', defined as: total_richness
+# in mean/median across checklists, defined as: mean_richness_across_checklists / median_richness_across_checklists
+# and mean/median resampled with 50 checklists at each wetland, defined as: resampled_mean_richness / resampled_median_richness
 
 library(dplyr)
 library(tidyverse)
@@ -77,13 +77,13 @@ mean_diversity_across_checklists <- s %>%
   dplyr::filter(CATEGORY == "species") %>%
   group_by(LOCALITY_ID, SAMPLING_EVENT_IDENTIFIER) %>%
   summarize(checklist_rich=length(unique(COMMON_NAME)),
-            checklist_abund=sum(OBSERVATION_COUNT)) %>%
+            checklist_abund=sum(OBSERVATION_COUNT), na.rm = TRUE) %>%
   ungroup() %>%
   group_by(LOCALITY_ID) %>%
-  summarize(mean_richness_across_checklists=mean(checklist_rich),
-            median_richness_across_checklists=median(checklist_rich),
-            mean_abund_across_checklists=mean(checklist_abund),
-            median_abund_across_checklists=median(checklist_abund))
+  summarize(mean_richness_across_checklists=mean(checklist_rich, na.rm = TRUE),
+            median_richness_across_checklists=median(checklist_rich, na.rm = TRUE),
+            mean_abund_across_checklists=mean(checklist_abund, na.rm = TRUE),
+            median_abund_across_checklists=median(checklist_abund, na.rm = TRUE))
 
 
 # calculate a resampled species richness

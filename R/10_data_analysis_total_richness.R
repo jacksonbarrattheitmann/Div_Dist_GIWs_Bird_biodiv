@@ -51,7 +51,7 @@ median(wetland_bird_matrix$area_sqkm)
 range(wetland_bird_matrix$area_sqkm)
 sd(wetland_bird_matrix$area_sqkm)
 
-# supp figure?
+# supp figure of wetlands by area, with median in red
 ggplot(wetland_bird_matrix, aes(x=area_sqkm))+
   geom_histogram(fill="gray80", color="black")+
   geom_vline(xintercept = 0.16, col = "red")+
@@ -142,7 +142,7 @@ check_model(mod1_glm)
 # https://statmodeling.stat.columbia.edu/2009/07/11/when_to_standar/
 
 library(arm)
-?rescale
+
 
 # fitting a model for species area relationship only
 mod1 <- glm(total_richness ~ log10(area_sqkm) + log10(total_checklists), family=poisson, data=wetland_bird_matrix)
@@ -196,41 +196,37 @@ ggplot(data = wet_types_c_n, aes(x = area_sqkm, y = total_richness)) +
   ylab("Total Richness") +
   scale_x_log10()
 
-?check_model
-
-
 
 
 ###########LANDCOVER
 # look at 'built'
-mod_built <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(built_wet) + rescale(built_gamma), 
+mod_built <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(built_wet) + rescale(built_25km), 
                  family=poisson, data=wetland_bird_matrix)
 summary(mod_built)
 
 check_model(mod_built)
 
 # look at 'trees'
-mod_trees <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(trees_wet) + rescale(trees_gamma), 
+mod_trees <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(trees_wet) + rescale(trees_25km), 
                  family=poisson, data=wetland_bird_matrix)
 summary(mod_trees)
 
 check_model(mod_trees)
 
 # look at 'flooded vegetation'
-mod_veg <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(flooded_vegetation_wet) + rescale(flooded_vegetation_gamma), 
+mod_veg <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(flooded_vegetation_wet) + rescale(flooded_vegetation_25km), 
                  family=poisson, data=wetland_bird_matrix)
 summary(mod_veg)
 
 check_model(mod_veg)
 
 # look at 'water'
-mod_water <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(water_wet) + rescale(water_gamma), 
+mod_water <- glm(total_richness ~ rescale(log10(total_checklists)) + rescale(water_wet) + rescale(water_25km), 
                family=poisson, data=wetland_bird_matrix)
 summary(mod_water)
 
 check_model(mod_water)
 
-# maybe do this for each 'pair' of variables?
 
 ################################################ 25km ###############
 ################################################
@@ -561,7 +557,7 @@ big_mod_summary_glm_re_area %>%
 
 
 # plot of tree landscape and 
-plot(rescale(wetland_bird_matrix$flooded_vegetation_gamma), rescale(wetland_bird_matrix$shan_gamma))
+plot(rescale(wetland_bird_matrix$flooded_vegetation_25km), rescale(wetland_bird_matrix$shan_gamma_25))
 
 
 land_cover <- env_matrix[, c(3:20, 29:30)]
@@ -578,9 +574,9 @@ corrplot(M, method = "circle") # colorful number
 ######### checks of different things
 ######################### 
 # check to make sure we get the same result for lm versus glm
-big_mod <- lm(total_richness ~ rescale(log10(total_checklists)) + rescale(built_wet) + rescale(built_gamma) +
-                rescale(grass_wet) + rescale(grass_gamma) + rescale(trees_wet) + rescale(trees_gamma) +
-                rescale(water_wet) + rescale(water_gamma), data=wetland_bird_matrix)
+big_mod <- lm(total_richness ~ rescale(log10(total_checklists)) + rescale(built_wet) + rescale(built_25km) +
+                rescale(grass_wet) + rescale(grass_25km) + rescale(trees_wet) + rescale(trees_25km) +
+                rescale(water_wet) + rescale(water_25km), data=wetland_bird_matrix)
 
 summary(big_mod)
 

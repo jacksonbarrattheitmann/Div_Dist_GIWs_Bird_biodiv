@@ -63,7 +63,8 @@ species_list <- s_final %>%
   distinct()
 
 ## Reading in the functional traits table
-ebird_func_name <- read.csv("Data/functional_traits_data_AVONET/AVONET_Raw_Data.csv")
+ebird_func_name <- read.csv("Data/functional_traits_data_AVONET/AVONET_Raw_Data.csv") %>%
+  dplyr::select(1:26)
 
 func_tble <- read.csv("Data/functional_traits_data_AVONET/AVONET1_BirdLife.csv") %>%
   dplyr::select(1:5, 30:32)

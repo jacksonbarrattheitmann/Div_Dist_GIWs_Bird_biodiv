@@ -1,4 +1,6 @@
 # get data from eBird
+## This script will not run due to the API user specific key
+## However, downloaded data are available in the 'Data' folder
 ## packages
 library(readr)
 library(bigrquery)

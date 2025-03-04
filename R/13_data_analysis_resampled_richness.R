@@ -69,10 +69,10 @@ check_model(mod1_lm)
 ####### Landcover
 ####### Using the same random effect model we used for total richness
 
-big_mod_lm_re <- lmer(resampled_mean_richness ~ rescale(built_wet) + rescale(built_gamma) +
-                          rescale(grass_wet) + rescale(grass_gamma) + rescale(trees_wet) + rescale(trees_gamma) +
-                          rescale(water_wet) + rescale(water_gamma) + rescale(flooded_vegetation_wet) + rescale(flooded_vegetation_gamma)
-                        + rescale(shrub_and_scrub_wet) + rescale(shrub_and_scrub_gamma) + rescale(shan_wet) + rescale(shan_gamma) + 
+big_mod_lm_re <- lmer(resampled_mean_richness ~ rescale(built_wet) + rescale(built_25km) +
+                          rescale(grass_wet) + rescale(grass_25km) + rescale(trees_wet) + rescale(trees_25km) +
+                          rescale(water_wet) + rescale(water_25km) + rescale(flooded_vegetation_wet) + rescale(flooded_vegetation_25km)
+                        + rescale(shrub_and_scrub_wet) + rescale(shrub_and_scrub_25km) + rescale(shan_wet) + rescale(shan_gamma_25) + 
                           (1| NA_L1NAME), data=wetland_bird_matrix)
 
 summary(big_mod_lm_re)

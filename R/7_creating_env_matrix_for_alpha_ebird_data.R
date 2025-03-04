@@ -87,7 +87,7 @@ wet_shp <- st_make_valid(wet_shp)
 eco_reg <- st_make_valid(eco_reg)
 
 
-# bit hacky, but I think it works
+# identifying wetlands within ecoregion
 pi <- wet_shp %>% 
   st_within(eco_reg) %>%
   as.data.frame() %>%
