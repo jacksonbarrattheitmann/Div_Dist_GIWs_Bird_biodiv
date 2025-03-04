@@ -84,7 +84,7 @@ area_plot <- ggplot(data = functional_bird_matrix, aes(x = area_sqkm, y = total_
   geom_point() + geom_smooth(method = 'lm') + 
   scale_color_discrete(breaks=c('All Species', 'aerial', 'aquatic', 'generalist', 'insessorial', 'terrestrial'),
                        labels = c("All Species", "Aerial", "Aquatic", "Generalist", "Insessorial", "Terrestrial")) +
-  labs(fill = "Primary Lifestyle") + xlab("Area (km2)") + ylab("Species Richness") +
+  labs(fill = "Primary Lifestyle") + xlab("log Area (km2)") + ylab("Species Richness") +
   theme_bw() +
   theme(legend.position = c(0.1, 0.82), 
         legend.background = element_rect(fill ="transparent")) +
